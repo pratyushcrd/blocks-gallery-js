@@ -1,6 +1,7 @@
 import Base from './base'
 import {pluckNumber} from './lib'
 import defs from './defs'
+import Controls from './controls'
 
 class BlocksGallery extends Base{
     /**
@@ -22,7 +23,7 @@ class BlocksGallery extends Base{
     constructor (elementId, config) {
         super()
         /* Parse input configuration */
-        this._parseInput(elementId, config);
+        this._parseInput(elementId, config)
     }
 
     /**
@@ -31,15 +32,23 @@ class BlocksGallery extends Base{
      */
     _parseInput (elementId, config = {}) {
         let rootEl = document.getElementById(elementId)
-        let height = pluckNumber(config.height, defs.height)
-        let width = pluckNumber(config.width, defs.width)
+        let height = config.height = pluckNumber(config.height, defs.height)
+        let width = config.width = pluckNumber(config.width, defs.width)
 
         /* Throw error if element doesnt exists */
         if (!rootEl) {
             throw Error(`Element with id ${elementId} not found`)
         }
+        /* Applying height and width */
+        rootEl.style.height = height
+        rootEl.style.width = width
+
         /* Save the root element */
         this.addToStore('root',  rootEl)
+        /* Saving config */
+        this.addToStore('config', config)
+        /* Creating controllers for gallery */
+        this.addToStore('controls', new Controls(this, rootEl, config))
     }
 }
 
