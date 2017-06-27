@@ -1,6 +1,6 @@
 /**
- * Function to return first non 'undefined' value
- * from arguments list
+ * Function to return first 'non-undefined' value
+ * from parameters list
  */
 const pluck = function () {
     let i = 0,
