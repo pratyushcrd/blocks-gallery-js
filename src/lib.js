@@ -15,5 +15,8 @@ const pluck = function () {
   }
 
 export default {
-  pluck: pluck 
+  pluck: pluck,
+  pluckNumber: function () {
+    return +pluck.apply(null, arguments)
+  }
 }
