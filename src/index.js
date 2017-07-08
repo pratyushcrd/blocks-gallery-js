@@ -1,12 +1,14 @@
 import Base from './base'
-import {pluckNumber} from './lib'
+import { pluckNumber } from './lib'
 import defs from './defs'
 import Controls from './controls'
 
-class BlocksGallery extends Base{
-    /**
+const document = window.document
+
+class BlocksGallery extends Base {
+  /**
      * Constructor for BlocksGallery
-     * @param {string} elementId Id of dom element 
+     * @param {string} elementId Id of dom element
      * @param {Object} config Configuration object for BlocksGallery
      * @example
      * new BlocksGallery('my-gallery-2', {
@@ -20,36 +22,39 @@ class BlocksGallery extends Base{
      *   }]
      * })
      */
-    constructor (elementId, config) {
-        super()
-        /* Parse input configuration */
-        this._parseInput(elementId, config)
-    }
+  constructor(elementId, config) {
+    super()
+    /* Parse input configuration */
+    this.parseInput(elementId, config)
+  }
 
-    /**
+  /**
      * Parse input parameters of BlocksGallery
      * @private
      */
-    _parseInput (elementId, config = {}) {
-        let rootEl = document.getElementById(elementId)
-        let height = config.height = pluckNumber(config.height, defs.height)
-        let width = config.width = pluckNumber(config.width, defs.width)
+  parseInput(elementId, config = {}) {
+    const rootEl = document.getElementById(elementId)
+    const height = pluckNumber(config.height, defs.height)
+    const width = pluckNumber(config.width, defs.width)
 
-        /* Throw error if element doesnt exists */
-        if (!rootEl) {
-            throw Error(`Element with id ${elementId} not found`)
-        }
-        /* Applying height and width */
-        rootEl.style.height = height
-        rootEl.style.width = width
+    config.height = height
+    config.width = width
 
-        /* Save the root element */
-        this.addToStore('root',  rootEl)
-        /* Saving config */
-        this.addToStore('config', config)
-        /* Creating controllers for gallery */
-        this.addToStore('controls', new Controls(this, rootEl, config))
+    /* Throw error if element doesnt exists */
+    if (!rootEl) {
+      throw Error(`Element with id ${elementId} not found`)
     }
+    /* Applying height and width */
+    rootEl.style.height = height
+    rootEl.style.width = width
+
+    /* Save the root element */
+    this.addToStore('root', rootEl)
+    /* Saving config */
+    this.addToStore('config', config)
+    /* Creating controllers for gallery */
+    this.addToStore('controls', new Controls(this, rootEl, config))
+  }
 }
 
 /* Export the BlocksGallery class */

@@ -2,21 +2,25 @@
  * Function to return first 'non-undefined' value
  * from parameters list
  */
-const pluck = function () {
-    let i = 0,
-      ii = arguments.length,
-      item;
-    for (; i < ii; ++i) {
-      item = arguments[i];
-      if (item !== undefined) {
-        return item;
-      }
+const pluck = function (...args) {
+  let i = 0
+  let item
+  let result
+
+  const ii = args.length
+
+  for (; i < ii; i += 1) {
+    item = args[i]
+    if (item !== undefined) {
+      result = item
     }
   }
+  return result
+}
 
 export default {
-  pluck: pluck,
-  pluckNumber: function () {
-    return +pluck.apply(null, arguments)
-  }
+  pluck,
+  pluckNumber(...args) {
+    return +pluck(...args)
+  },
 }

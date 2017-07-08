@@ -5,7 +5,7 @@ import Base from './base'
  * Uses `Base` as the base class
  */
 class Controls extends Base {
-  constructor (parent, rootEl, config) {
+  constructor(parent, rootEl, config) {
     super()
     /* Saving the configurations */
     this.addToStore('parent', parent)
