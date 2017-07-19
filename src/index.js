@@ -1,5 +1,5 @@
 import Base from './base'
-import { pluckNumber, document } from './lib'
+import { pluckNumber } from './lib'
 import defs from './defs'
 import Controls from './controls'
 

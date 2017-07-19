@@ -3,5 +3,8 @@ module.exports = {
     "rules": {
         "semi": ["error", "never"],
         "linebreak-style": [0]
+    },
+    "env": {
+        "browser": true,
     }
 };
