@@ -23,14 +23,6 @@ class BlocksGallery extends Base {
   constructor(elementId, rawConfig) {
     super()
     /* Parse input configuration */
-    this.parseInput(elementId, rawConfig)
-  }
-
-  /**
-     * Parse input parameters of BlocksGallery
-     * @private
-     */
-  parseInput(elementId, rawConfig) {
     const rootEl = document.getElementById(elementId)
     const config = Object.assign({}, rawConfig || {})
     const height = pluckNumber(config.height, defs.height)
