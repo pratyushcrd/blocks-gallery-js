@@ -21,7 +21,9 @@ class BlocksGallery extends Base {
      * })
      */
   constructor(elementId, rawConfig) {
-    super()
+    super({
+      isEnvVariable: true,
+    })
     /* Parse input configuration */
     const rootEl = document.getElementById(elementId)
     const config = Object.assign({}, rawConfig || {})

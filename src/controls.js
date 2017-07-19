@@ -6,9 +6,8 @@ import Base from './base'
  */
 class Controls extends Base {
   constructor(parent, rootEl, config) {
-    super()
+    super(parent)
     /* Saving the configurations */
-    this.addToStore('parent', parent)
     this.addToStore('root', rootEl)
     this.addToStore('config', config)
   }
