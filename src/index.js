@@ -1,9 +1,7 @@
 import Base from './base'
-import { pluckNumber } from './lib'
+import { pluckNumber, document } from './lib'
 import defs from './defs'
 import Controls from './controls'
-
-const document = window.document
 
 class BlocksGallery extends Base {
   /**
@@ -22,18 +20,19 @@ class BlocksGallery extends Base {
      *   }]
      * })
      */
-  constructor(elementId, config) {
+  constructor(elementId, rawConfig) {
     super()
     /* Parse input configuration */
-    this.parseInput(elementId, config)
+    this.parseInput(elementId, rawConfig)
   }
 
   /**
      * Parse input parameters of BlocksGallery
      * @private
      */
-  parseInput(elementId, config = {}) {
+  parseInput(elementId, rawConfig) {
     const rootEl = document.getElementById(elementId)
+    const config = Object.assign({}, rawConfig || {})
     const height = pluckNumber(config.height, defs.height)
     const width = pluckNumber(config.width, defs.width)
 

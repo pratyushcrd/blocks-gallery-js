@@ -2,6 +2,8 @@
  * Function to return first 'non-undefined' value
  * from parameters list
  */
+const window = this
+
 const pluck = function (...args) {
   let i = 0
   let item
@@ -23,4 +25,6 @@ export default {
   pluckNumber(...args) {
     return +pluck(...args)
   },
+  window,
+  document: window.document,
 }
