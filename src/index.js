@@ -24,7 +24,7 @@ class BlocksGallery extends Base {
   constructor(elementId, rawConfig) {
     // Making the environment variable
     // Every instance will have its own environment
-    // variable
+    // object
     super({
       isEnvVariable: true,
     })

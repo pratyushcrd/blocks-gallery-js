@@ -37,7 +37,6 @@ function setVisible(pos) {
   // Proceed if valid
   if (pos < domCollection.length && currentActivePos !== pos) {
     // Make current position visible
-    console.log(pos)
     domCollection[pos].container.style.display = ''
     // Make previous position hidden
     // check since in first time currentActivePos
@@ -95,6 +94,33 @@ class Renderer extends Base {
     // Add imageList to store
     this.addToStore('imageList', imageArr)
     renderImages.call(this)
+  }
+  /**
+   * Command renderer to set position as given
+   */
+  setPosition(pos) {
+    const domCollection = this.getFromStore('domCollection')
+    if (pos >= 0 && pos < domCollection.length) {
+      setVisible.call(this, pos)
+    }
+  }
+  /**
+   * Command renderer to set next image as current
+   */
+  next() {
+    const currentPos = this.getFromStore('activePosition')
+    const domCollection = this.getFromStore('domCollection')
+    const nextPos = (currentPos + 1) % domCollection.length
+    this.setPosition(nextPos)
+  }
+  /**
+   * Command renderer to set previous image as current
+   */
+  previous() {
+    const currentPos = this.getFromStore('activePosition')
+    const domCollection = this.getFromStore('domCollection')
+    const nextPos = (currentPos + 1) % domCollection.length
+    this.setPosition(nextPos)
   }
 }
 
