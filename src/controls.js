@@ -1,4 +1,4 @@
-import Base from './base'
+import Base from './Base'
 
 /**
  * Left and Right controllers for gallery

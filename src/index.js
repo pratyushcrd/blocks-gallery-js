@@ -1,7 +1,8 @@
-import Base from './base'
+import Base from './Base'
 import { pluckNumber } from './lib'
 import defs from './defs'
-import Controls from './controls'
+import Controls from './Controls'
+import Renderer from './Renderer'
 
 class BlocksGallery extends Base {
   /**
@@ -49,7 +50,9 @@ class BlocksGallery extends Base {
     /* Saving config */
     this.addToEnv('config', config)
     /* Creating controllers for gallery */
-    this.addToStore('controls', new Controls(this, config))
+    this.addToEnv('controls', new Controls(this))
+    /* Creating handler to render the images */
+    this.addToEnv('renderer', new Renderer(this))
   }
 }
 
