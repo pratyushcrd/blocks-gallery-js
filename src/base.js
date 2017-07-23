@@ -17,6 +17,24 @@ function setEnv(parent, baseClass) {
   }
 }
 /**
+ * Function to get props from binded object
+ * @return if one prop is send that prop value is return otherwise
+ * object is returned having all requested keys
+ * @param {String} keys key of property to get it
+ */
+function getter(...keys) {
+  let result
+  if (keys.length === 1) {
+    result = this[keys[0]]
+  } else {
+    result = {}
+    keys.forEach((key) => {
+      result[key] = this[key]
+    })
+  }
+  return result
+}
+/**
  * A class that will be base class for all other components
  * so initialize states and add basic functionalities
  */
@@ -32,28 +50,28 @@ export default class Base {
     this.store[key] = val
   }
   /* Getter for store */
-  getFromStore(key) {
-    return this.store[key]
+  getFromStore(...keys) {
+    return getter.call(this.store, keys)
   }
   /* Setter for state */
   setState(key, val) {
     this.state[key] = val
   }
   /* Getter for state */
-  getState(key) {
-    return this.state[key]
+  getState(...keys) {
+    return getter.call(this.state, keys)
   }
   /* Setter for props */
   setProps(key, val) {
     this.props[key] = val
   }
   /* Getter for props */
-  getProps(key) {
-    return this.props[key]
+  getProps(...keys) {
+    return getter.call(this.props, keys)
   }
   /** Get from common environment */
-  getFromEnv(key) {
-    return this.environmment[key]
+  getFromEnv(...keys) {
+    return getter.call(this.environmment, keys)
   }
   /* Add to environment */
   addToEnv(key, val) {

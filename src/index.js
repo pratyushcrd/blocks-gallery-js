@@ -54,6 +54,18 @@ class BlocksGallery extends Base {
     /* Creating handler to render the images */
     this.addToEnv('renderer', new Renderer(this))
   }
+  /**
+   * Show next image in list
+   */
+  next() {
+    this.getFromEnv('renderer').next()
+  }
+  /**
+   * Show previous image in list
+   */
+  previous() {
+    this.getFromEnv('renderer').previous()
+  }
 }
 
 /* Export the BlocksGallery class */
