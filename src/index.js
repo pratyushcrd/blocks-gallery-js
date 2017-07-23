@@ -21,12 +21,15 @@ class BlocksGallery extends Base {
      * })
      */
   constructor(elementId, rawConfig) {
+    // Making the environment variable
+    // Every instance will have its own environment
+    // variable
     super({
       isEnvVariable: true,
     })
     /* Parse input configuration */
     const rootEl = document.getElementById(elementId)
-    const config = Object.assign({}, rawConfig || {})
+    const config = Object.assign({}, rawConfig)
     const height = pluckNumber(config.height, defs.height)
     const width = pluckNumber(config.width, defs.width)
 
@@ -42,11 +45,11 @@ class BlocksGallery extends Base {
     rootEl.style.width = width
 
     /* Save the root element */
-    this.addToStore('root', rootEl)
+    this.addToEnv('root', rootEl)
     /* Saving config */
-    this.addToStore('config', config)
+    this.addToEnv('config', config)
     /* Creating controllers for gallery */
-    this.addToStore('controls', new Controls(this, rootEl, config))
+    this.addToStore('controls', new Controls(this, config))
   }
 }
 

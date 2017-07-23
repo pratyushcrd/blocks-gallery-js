@@ -2,7 +2,7 @@
  * Function to return first 'non-undefined' value
  * from parameters list
  */
-const pluck = function (...args) {
+const pluck = (...args) => {
   let i = 0
   let item
   let result
