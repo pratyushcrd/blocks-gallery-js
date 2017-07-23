@@ -1,12 +1,18 @@
 function getParent() {
   return this.getFromStore('parent')
 }
-function setEnv(object) {
-  if (object.isEnvVariable) {
-    this.environmment = object
+function setEnv(parent, baseClass) {
+  // Checking if env object is sent instead of parent
+  if (parent.isEnvVariable) {
+    this.environmment = parent
   } else {
-    this.environmment = object.environmment
-    this.addToStore('parent', object)
+    // Every component must call super with their parent
+    // which is supposed to be instance of Base
+    if (!(this instanceof baseClass)) {
+      throw Error('Make sure first parameter is the parent component which is an instance of Base component')
+    }
+    this.environmment = parent.environmment
+    this.addToStore('parent', parent)
     this.getParent = getParent
   }
 }
@@ -19,7 +25,7 @@ export default class Base {
     this.state = {}
     this.store = {}
     this.props = {}
-    setEnv.call(this, parent)
+    setEnv.call(this, parent, Base)
   }
   /* Setter for store */
   addToStore(key, val) {
