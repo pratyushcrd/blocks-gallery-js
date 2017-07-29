@@ -1,5 +1,5 @@
 import Base from '../Base'
-import Grid from './Grid/'
+import Grid from './Grid'
 
 /**
  * Component responsible for blocks management of image,
@@ -7,7 +7,7 @@ import Grid from './Grid/'
  * when required
  */
 class Blocks extends Base {
-  constructor(parent) {
+  constructor(parent, renderer) {
     super(parent)
 
     const rootEl = this.getFromEnv('root')
@@ -16,6 +16,8 @@ class Blocks extends Base {
     // Append child to rootEl
     rootEl.appendChild(blocksEl)
 
+    // Add renderer to store
+    this.addToStore('renderer', renderer)
     // Add blocks node to store
     this.addToStore('blocksEl', blocksEl)
     // Initialize grid for the block instance

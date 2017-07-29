@@ -34,7 +34,6 @@ class BlocksGallery extends Base {
     const config = Object.assign({}, rawConfig)
     const height = pluckNumber(config.height, defs.height)
     const width = pluckNumber(config.width, defs.width)
-
     config.height = height
     config.width = width
 
@@ -53,9 +52,10 @@ class BlocksGallery extends Base {
     /* Creating controllers for gallery */
     this.addToEnv('controls', new Controls(this))
     /* Creating handler to render the images */
-    this.addToEnv('renderer', new Renderer(this))
+    const renderer = new Renderer(this)
+    this.addToEnv('renderer', renderer)
     /* Creating handler to manage the grids */
-    this.addToEnv('renderer', new Blocks(this))
+    this.addToEnv('blocks', new Blocks(this, renderer))
   }
   /**
    * Show next image in list
