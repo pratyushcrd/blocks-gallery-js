@@ -37,7 +37,7 @@ function deepGet(ob, key) {
  * object is returned having all requested keys
  * @param {String} keys key of property to get it
  */
-function getter(ob, ...keys) {
+function getter(ob, keys) {
   let result
   if (keys.length === 1) {
     result = deepGet(ob, keys[0])
