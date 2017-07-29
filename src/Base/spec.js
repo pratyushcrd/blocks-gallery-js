@@ -1,5 +1,4 @@
 import Base from './'
-console.log(1)
 describe('Base Component Test', () => {
   it('should have a constructor that receives env object', () => {
     const envOb = {
