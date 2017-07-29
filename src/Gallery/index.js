@@ -5,6 +5,16 @@ import Controls from '../Controls//'
 import Renderer from '../Renderer/'
 import Blocks from '../Blocks'
 
+function animateBlocks(blocks) {
+  // Show blocks
+  blocks.show()
+  // Animate blocks and hide it when
+  // animation completes
+  blocks.animate(() => {
+    blocks.hide()
+  })
+}
+
 class BlocksGallery extends Base {
   /**
      * Constructor for BlocksGallery
@@ -61,12 +71,14 @@ class BlocksGallery extends Base {
    * Show next image in list
    */
   next() {
+    animateBlocks(this.getFromStore('blocks'))
     this.getFromStore('renderer').next()
   }
   /**
    * Show previous image in list
    */
   previous() {
+    animateBlocks(this.getFromStore('blocks'))
     this.getFromStore('renderer').previous()
   }
 }

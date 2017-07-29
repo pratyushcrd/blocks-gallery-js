@@ -21,7 +21,7 @@ class Blocks extends Base {
     // Add blocks node to store
     this.addToStore('blocksEl', blocksEl)
     // Initialize grid for the block instance
-    this.addToStore('grid', new Grid(this, rootEl))
+    this.addToStore('grid', new Grid(this, blocksEl))
   }
 }
 
