@@ -5,21 +5,28 @@
  */
 import Base from '../../Base'
 
-function createBlocks(height, width, root) {
+function blockStyle(side, x, y, style = '') {
+  return `${style} height: ${side}px ; width: ${side}px; display: inline-block ;overflow: hidden;position:absolute;margin-left : ${side * x}px;margin-top:${side * y}px`
+}
+
+function blockImgStyle(side, x, y, height, width, style = '') {
+  return `${style};position:absolute;height: ${height}px; width: ${width}px; left: -${x * side}px; top: -${y * side}px`
+}
+
+function createBlocks(root, height, width) {
   const area = Math.round((height * width) / 100)
   const len = Math.round(Math.sqrt(area))
   const blocks = []
   for (let i = 0; i < 10; i += 1) {
+    blocks[i] = []
     for (let j = 0; j < 10; j += 1) {
       const block = document.createElement('div')
       const img = document.createElement('img')
-
-      const blockStyle = `height: ${len}px ; width: ${len}px; display: inline-block ;overflow: hidden;position:absolute;margin-left : ${len * j}px;margin-top:${len * i}px`
-      const imgStyle = `position:absolute;height: ${height}px; width: ${width}px; left: -${j * len}px; top: -${i * len}px`
-
+      const divStyle = blockStyle(len, j, i, '')
+      const imgStyle = blockImgStyle(len, j, i, height, width, '')
       block.setAttribute('height', `${len}px`)
       block.setAttribute('width', `${len}px`)
-      block.setAttribute('style', blockStyle)
+      block.setAttribute('style', divStyle)
       img.setAttribute('style', imgStyle)
       block.appendChild(img)
 
@@ -27,8 +34,7 @@ function createBlocks(height, width, root) {
         div: block,
         img,
       }
-
-      blocks[i][j].push(blockElements)
+      blocks[i][j] = blockElements
       root.appendChild(block)
     }
   }
