@@ -4,14 +4,14 @@ function getParent() {
 function setEnv(parent, baseClass) {
   // Checking if env object is sent instead of parent
   if (parent.isEnvVariable) {
-    this.environmment = parent
+    this.environment = parent
   } else {
     // Every component must call super with their parent
     // which is supposed to be instance of Base
     if (!(this instanceof baseClass)) {
       throw Error('Make sure first parameter is the parent component which is an instance of Base component')
     }
-    this.environmment = parent.environmment
+    this.environment = parent.environment
     this.addToStore('parent', parent)
     this.getParent = getParent
   }
@@ -71,10 +71,10 @@ export default class Base {
   }
   /** Get from common environment */
   getFromEnv(...keys) {
-    return getter(this.environmment, keys)
+    return getter(this.environment, keys)
   }
   /* Add to environment */
   addToEnv(key, val) {
-    this.environmment[key] = val
+    this.environment[key] = val
   }
 }
