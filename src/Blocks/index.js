@@ -1,6 +1,15 @@
 import Base from '../Base'
 import Grid from './Grid'
 
+function customizeBlockEl(el, config) {
+  const blocksEl = el
+  blocksEl.style.height = `${config.height}px`
+  blocksEl.style.width = `${config.width}px`
+  blocksEl.style.position = 'absolute'
+  blocksEl.style.top = '0px'
+  blocksEl.style.left = '0px'
+}
+
 /**
  * Component responsible for blocks management of image,
  * responsible for querying image and show / hide or animate
@@ -15,6 +24,8 @@ class Blocks extends Base {
 
     // Append child to rootEl
     rootEl.appendChild(blocksEl)
+
+    customizeBlockEl(blocksEl, this.getFromEnv('config'))
 
     // Add renderer to store
     this.addToStore('renderer', renderer)
