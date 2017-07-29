@@ -3,6 +3,7 @@ import { pluckNumber } from '../lib/'
 import defs from '../defs/'
 import Controls from '../Controls//'
 import Renderer from '../Renderer/'
+import Blocks from '../Blocks'
 
 class BlocksGallery extends Base {
   /**
@@ -53,6 +54,8 @@ class BlocksGallery extends Base {
     this.addToEnv('controls', new Controls(this))
     /* Creating handler to render the images */
     this.addToEnv('renderer', new Renderer(this))
+    /* Creating handler to manage the grids */
+    this.addToEnv('renderer', new Blocks(this))
   }
   /**
    * Show next image in list
