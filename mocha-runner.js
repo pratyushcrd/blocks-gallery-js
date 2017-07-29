@@ -5,6 +5,7 @@ import Module from 'module'
 import jsdom from 'jsdom'
 import Mocha from 'mocha'
 import chokidar from 'chokidar'
+import glob from 'glob'
 
 // Let's import and globalize testing tools so
 // there's no need to require them in each test
@@ -13,6 +14,10 @@ import chai, { expect } from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 
 chai.use(chaiAsPromised)
+
+// File locations
+const TEST_FILES = 'src/**/spec.js'
+const SRC_FILES = 'src/**/*.js'
 
 // Environment setup (used by Babel as well, see .babelrc)
 process.env.NODE_ENV = 'test'
@@ -89,10 +94,17 @@ function runSuite() {
  * @param  {string} a glob of files to watch
  * @param  {object} settings
  */
-chokidar.watch('src/**/spec.js', { persistent: true })
-  .on('add', path => fileList.push(path))
-  .on('change', path => runSuite())
-  .on('ready', () => runSuite())
+if (process.argv[2] === '--watch') {
+  chokidar.watch(TEST_FILES, { persistent: true })
+    .on('add', path => fileList.push(path))
+    .on('change', path => runSuite())
+    .on('ready', () => runSuite())
 
-chokidar.watch('src/**/*.js', { persistent: true })
-  .on('change', path => runSuite())
+  chokidar.watch(SRC_FILES, { persistent: true })
+    .on('change', path => runSuite())
+} else {
+  glob(TEST_FILES, (er, files) => {
+    fileList.push(...files)
+    runSuite()
+  })
+}

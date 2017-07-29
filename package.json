@@ -4,7 +4,8 @@
   "description": "No dependency Js Gallery with block style animations",
   "main": "src/index.js",
   "scripts": {
-    "test": "node_modules/.bin/babel-node mocha-runner.js",
+    "test": "node_modules/.bin/babel-node mocha-runner.js --watch",
+    "test-once": "node_modules/.bin/babel-node mocha-runner.js",
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --config webpack.config.js --watch",
     "start": "webpack-dev-server --open"
