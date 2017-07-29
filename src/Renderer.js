@@ -83,7 +83,6 @@ class Renderer extends Base {
     // Getting configuration from env to get
     // the image list
     const config = this.getFromEnv('config')
-    console.log(this, config)
     const imageArr = (config.src || [])
       .filter((ob => ob &&
           (
