@@ -64,8 +64,8 @@ function createBlocks(root, height, width) {
 class Grid extends Base {
   constructor(parent, root) {
     super(parent)
-    const height = this.getFromEnv('height')
-    const width = this.getFromEnv('width')
+    const height = this.getFromEnv('config.height')
+    const width = this.getFromEnv('config.width')
     this.addToStore('blocks', createBlocks(root, height, width))
   }
 
