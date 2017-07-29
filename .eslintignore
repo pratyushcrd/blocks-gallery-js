@@ -9,3 +9,4 @@
 /tmp/**
 test.js
 /node_modules
+/src/**/spec.js
