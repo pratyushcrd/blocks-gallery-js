@@ -4,15 +4,35 @@
  * @param {*number} width
  */
 import Base from '../../Base'
-
+/**
+ * Function to set the one block property
+ * @param {*number} side : length of the block side
+ * @param {*number} x : x coordinate of the plot
+ * @param {*number} y : y coordinate of the plot
+ * @param {*string} style : previous style if there any
+ */
 function blockStyle(side, x, y, style = '') {
   return `${style} height: ${side}px ; width: ${side}px; display: inline-block ;overflow: hidden;position:absolute;margin-left : ${side * x}px;margin-top:${side * y}px`
 }
-
+/**
+ * Function to set the one img property
+ * @param {*number} side : length of the block side
+ * @param {*number} x : x coordinate of the plot
+ * @param {*number} y : y coordinate of the plot
+ * @param {*number} height : height of the image
+ * @param {*number} width : width of the image
+ * @param {*string} style : previous style if there any
+ */
 function blockImgStyle(side, x, y, height, width, style = '') {
   return `${style};position:absolute;height: ${height}px; width: ${width}px; left: -${x * side}px; top: -${y * side}px`
 }
 
+/**
+ * Fuction to create blocks
+ * @param {*object} root : root element to which the bock need to be appended
+ * @param {*number} height : height of the image
+ * @param {*number} width : width of the image
+ */
 function createBlocks(root, height, width) {
   const area = Math.round((height * width) / 100)
   const len = Math.round(Math.sqrt(area))
