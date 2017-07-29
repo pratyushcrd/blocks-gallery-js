@@ -16,6 +16,21 @@ function setEnv(parent, baseClass) {
     this.getParent = getParent
   }
 }
+
+/**
+ * Function that can get complex attributes from
+ * object, e.g 'abc.xyz.ijk'
+ * @param {Object} ob Object to find the result
+ * @param {string} key complex or simple string attribute
+ */
+function deepGet(ob, key) {
+  let result = ob
+  // Split key by '.' delimeter
+  key.split('.').forEach((attr) => {
+    result = result[attr]
+  })
+  return result
+}
 /**
  * Function to get props from binded object
  * @return if one prop is send that prop value is return otherwise
@@ -25,11 +40,11 @@ function setEnv(parent, baseClass) {
 function getter(ob, ...keys) {
   let result
   if (keys.length === 1) {
-    result = ob[keys[0]]
+    result = deepGet(ob, keys[0])
   } else {
     result = {}
     keys.forEach((key) => {
-      result[key] = ob[key]
+      result[key] = deepGet(ob, key)
     })
   }
   return result
