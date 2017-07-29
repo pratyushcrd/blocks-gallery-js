@@ -50,24 +50,24 @@ class BlocksGallery extends Base {
     /* Saving config */
     this.addToEnv('config', config)
     /* Creating controllers for gallery */
-    this.addToEnv('controls', new Controls(this))
+    this.addToStore('controls', new Controls(this))
     /* Creating handler to render the images */
     const renderer = new Renderer(this)
-    this.addToEnv('renderer', renderer)
+    this.addToStore('renderer', renderer)
     /* Creating handler to manage the grids */
-    this.addToEnv('blocks', new Blocks(this, renderer))
+    this.addToStore('blocks', new Blocks(this, renderer))
   }
   /**
    * Show next image in list
    */
   next() {
-    this.getFromEnv('renderer').next()
+    this.getFromStore('renderer').next()
   }
   /**
    * Show previous image in list
    */
   previous() {
-    this.getFromEnv('renderer').previous()
+    this.getFromStore('renderer').previous()
   }
 }
 
