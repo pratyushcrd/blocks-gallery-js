@@ -9,27 +9,26 @@ function createBlocks(height, width, root) {
   const area = Math.round((height * width) / 100)
   const len = Math.round(Math.sqrt(area))
   const blocks = []
-  for (let ii = 0; ii < 10; ii += 1) {
-    for (let jj = 0; jj < 10; jj += 1) {
+  for (let i = 0; i < 10; i += 1) {
+    for (let j = 0; j < 10; j += 1) {
       const block = document.createElement('div')
       const img = document.createElement('img')
 
-      const blockStyle = `height: ${len}px ; width: ${len}px; display: inline-block ;overflow: hidden;position:absolute;margin-left : ${len * jj}px;margin-top:${len * ii}px`
-      const imgStyle = `position:absolute;height: ${height}px; width: ${width}px; left: -${jj * len}px; top: -${ii * len}px`
+      const blockStyle = `height: ${len}px ; width: ${len}px; display: inline-block ;overflow: hidden;position:absolute;margin-left : ${len * j}px;margin-top:${len * i}px`
+      const imgStyle = `position:absolute;height: ${height}px; width: ${width}px; left: -${j * len}px; top: -${i * len}px`
 
       block.setAttribute('height', `${len}px`)
       block.setAttribute('width', `${len}px`)
       block.setAttribute('style', blockStyle)
-      img.setAttribute('src', '')
       img.setAttribute('style', imgStyle)
       block.appendChild(img)
 
-      const blockElments = {
+      const blockElements = {
         div: block,
         img,
       }
 
-      blocks[ii][jj].push(blockElments)
+      blocks[i][j].push(blockElements)
       root.appendChild(block)
     }
   }
@@ -45,10 +44,10 @@ class Grid extends Base {
   }
 
   iterate(callback) {
-    for (let ii = 0; ii < 10; ii += 1) {
-      for (let jj = 0; jj < 10; jj += 1) {
-        const block = this.getFromStore('blocks')[ii][jj]
-        callback(block.img, block.div, ii, jj)
+    for (let i = 0; i < 10; i += 1) {
+      for (let j = 0; j < 10; j += 1) {
+        const block = this.getFromStore('blocks')[i][j]
+        callback(block.img, block.div, i, j)
       }
     }
   }
