@@ -1,5 +1,5 @@
-import { pluck } from './lib'
-import Base from './Base'
+import { pluck } from '../lib/'
+import Base from '../Base/'
 /**
  * Function to create list item of gallery
  * based on provided object
