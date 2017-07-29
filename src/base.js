@@ -22,14 +22,14 @@ function setEnv(parent, baseClass) {
  * object is returned having all requested keys
  * @param {String} keys key of property to get it
  */
-function getter(...keys) {
+function getter(ob, ...keys) {
   let result
   if (keys.length === 1) {
-    result = this[keys[0]]
+    result = ob[keys[0]]
   } else {
     result = {}
     keys.forEach((key) => {
-      result[key] = this[key]
+      result[key] = ob[key]
     })
   }
   return result
@@ -51,7 +51,7 @@ export default class Base {
   }
   /* Getter for store */
   getFromStore(...keys) {
-    return getter.call(this.store, keys)
+    return getter(this.store, keys)
   }
   /* Setter for state */
   setState(key, val) {
@@ -59,7 +59,7 @@ export default class Base {
   }
   /* Getter for state */
   getState(...keys) {
-    return getter.call(this.state, keys)
+    return getter(this.state, keys)
   }
   /* Setter for props */
   setProps(key, val) {
@@ -67,11 +67,11 @@ export default class Base {
   }
   /* Getter for props */
   getProps(...keys) {
-    return getter.call(this.props, keys)
+    return getter(this.props, keys)
   }
   /** Get from common environment */
   getFromEnv(...keys) {
-    return getter.call(this.environmment, keys)
+    return getter(this.environmment, keys)
   }
   /* Add to environment */
   addToEnv(key, val) {
