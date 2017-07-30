@@ -6,22 +6,19 @@ import Base from '../Base/'
  * @param {Object} object Info for current element
  * @param {Object} config Global config
  */
-function getListItemImage(object, config) {
-  const container = document.createElement('div')
-  const image = document.createElement('img')
-  const text = document.createElement('div')
-  // Applying image attributes
-  image.setAttribute('height', config.height)
-  image.setAttribute('width', config.width)
-  image.setAttribute('src', object.image)
-  // Applying text attributes
-  text.textContent = pluck(object.text, '')
-  // Appending elements to container
-  container.appendChild(image)
-  container.appendChild(text)
+function getListItemImage(object, config, paper) {
+  const group = paper.group()
+  const image = paper.image(object.image, 0, 0, config.width, config.height)
+  const text = paper.text(0,
+    0,
+    pluck(object.text, ''),
+  )
+  // Add elements to group
+  group.add(image)
+  group.add(text)
   // Return all the elements
   return {
-    container,
+    group,
     image,
     text,
     imageSrc: object.image,
@@ -38,12 +35,12 @@ function setVisible(pos) {
   // Proceed if valid
   if (pos < domCollection.length && currentActivePos !== pos) {
     // Make current position visible
-    domCollection[pos].container.style.display = ''
+    domCollection[pos].group.show()
     // Make previous position hidden
     // check since in first time currentActivePos
     // is undefined
     if (domCollection[currentActivePos]) {
-      domCollection[currentActivePos].container.style.display = 'none'
+      domCollection[currentActivePos].group.hide()
     }
     // Mark the given position as active
     this.addToStore('activePosition', pos)
@@ -54,23 +51,20 @@ function setVisible(pos) {
  * Private method for Renderer to render Images in actual dom
  */
 function renderImages() {
-  const rootEl = this.getFromEnv('root')
+  const paper = this.getFromEnv('paper')
+  const group = this.getFromStore('rendererGroup')
   const config = this.getFromEnv('config')
   const imageList = this.getFromStore('imageList')
   // Iterating over image lists and actually making the dom elements
-  const domCollection = imageList.map(imageOb => getListItemImage(imageOb, config))
+  const domCollection = imageList.map(imageOb => getListItemImage(imageOb, config, paper))
   // Adding domCollection to store
   this.addToStore('domCollection', domCollection)
-  // Append all dom elements to root element
+  // Initially all elements will be invisible
   domCollection.forEach((domOb) => {
-    rootEl.appendChild(domOb.container)
+    // Also add all elements to main group
+    group.add(domOb.group)
   })
-  // Initially all elements will be visible
-  domCollection.forEach((domOb) => {
-    const container = domOb.container
-    container.style.display = 'none'
-  })
-  // Expect for the marked one ;)
+  // 0th image will be visible at first
   setVisible.call(this, 0)
 }
 
@@ -84,6 +78,15 @@ class Renderer extends Base {
     // Getting configuration from env to get
     // the image list
     const config = this.getFromEnv('config')
+    const paper = this.getFromEnv('paper')
+    // create and add group to store
+    this.addToStore('rendererGroup',
+      paper
+      .group()
+      .attr({
+        id: 'blocks-gallery-renderer',
+      }),
+    )
     const imageArr = (config.src || [])
       .filter((ob => ob &&
           (

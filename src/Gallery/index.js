@@ -5,6 +5,10 @@ import defs from '../defs/'
 import Controls from '../Controls//'
 import Renderer from '../Renderer/'
 import Blocks from '../Blocks'
+import extendSnap from '../lib/extendSnap'
+
+// extend feature of SnapSvg
+extendSnap(Snap)
 
 function animateBlocks(blocks) {
   // Show blocks
@@ -45,6 +49,7 @@ class BlocksGallery extends Base {
     const config = Object.assign({}, rawConfig)
     const height = pluckNumber(config.height, defs.height)
     const width = pluckNumber(config.width, defs.width)
+    const svg = document.createElementNS(null, 'svg')
     config.height = height
     config.width = width
 
@@ -52,12 +57,16 @@ class BlocksGallery extends Base {
     if (!rootEl) {
       throw Error(`Element with id ${elementId} not found`)
     }
+    // Adjust svg
+    // Create paper
+    rootEl.appendChild(svg)
+    const paper = new Snap(width, height)
     /* Applying height and width */
     rootEl.style.height = height
     rootEl.style.width = width
 
     /* Save the root element */
-    this.addToEnv('root', rootEl)
+    this.addToEnv('paper', paper)
     /* Saving config */
     this.addToEnv('config', config)
     /* Creating controllers for gallery */
