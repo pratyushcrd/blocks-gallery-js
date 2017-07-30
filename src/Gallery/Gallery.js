@@ -1,10 +1,10 @@
 import Snap from 'imports-loader?this=>window,fix=>module.exports=0!snapsvg/dist/snap.svg.js'
-import Base from '../Base/'
-import { pluckNumber } from '../lib/'
-import defs from '../defs/'
-import Controls from '../Controls//'
-import Renderer from '../Renderer/'
-import Blocks from '../Blocks'
+import Base from '../Base/Base'
+import { pluckNumber } from '../lib/lib'
+import defs from '../defs/defs'
+import Controls from '../Controls/Controls'
+import Renderer from '../Renderer/Renderer'
+import Blocks from '../Blocks/Blocks'
 import extendSnap from '../lib/extendSnap'
 
 // extend feature of SnapSvg

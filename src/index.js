@@ -1,4 +1,4 @@
-import BlocksGallery from './Gallery/'
+import BlocksGallery from './Gallery/Gallery'
 
 // Add global functionalities here if needed
 

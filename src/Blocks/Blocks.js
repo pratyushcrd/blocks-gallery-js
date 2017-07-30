@@ -1,5 +1,5 @@
-import Base from '../Base'
-import Grid from './Grid'
+import Base from '../Base/Base'
+import Grid from './Grid/Grid'
 
 /**
  * Component responsible for blocks management of image,

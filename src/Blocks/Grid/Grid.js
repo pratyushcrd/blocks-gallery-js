@@ -3,7 +3,7 @@
  * @param {*number} height
  * @param {*number} width
  */
-import Base from '../../Base'
+import Base from '../../Base/Base'
 /**
  * Function to set the one block property
  * @param {*object} el : element whose property is to set
