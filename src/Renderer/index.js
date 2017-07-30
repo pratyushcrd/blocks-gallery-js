@@ -24,6 +24,7 @@ function getListItemImage(object, config) {
     container,
     image,
     text,
+    imageSrc: object.image,
   }
 }
 /**
@@ -121,6 +122,12 @@ class Renderer extends Base {
     const domCollection = this.getFromStore('domCollection')
     const nextPos = (currentPos + 1) % domCollection.length
     this.setPosition(nextPos)
+  }
+
+  getCurrent() {
+    const currentActivePos = this.getFromStore('activePosition')
+    const domCollection = this.getFromStore('domCollection')
+    return domCollection[currentActivePos]
   }
 }
 

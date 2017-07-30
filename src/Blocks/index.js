@@ -34,6 +34,29 @@ class Blocks extends Base {
     // Initialize grid for the block instance
     this.addToStore('grid', new Grid(this, blocksEl))
   }
+
+  show() {
+    this.getFromStore('blocksEl').style.visibility = 'visible'
+  }
+
+  hide() {
+    this.getFromStore('blocksEl').style.visibility = 'hidden'
+  }
+
+  animate(fn) {
+    const currentImage = this.getFromStore('renderer').getCurrent().imageSrc
+    this.getFromStore('grid').iterate((img) => {
+      img.setAttribute('src', currentImage)
+      if (Math.random() > 0.4) {
+        img.style.display = 'block'
+      } else {
+        img.style.display = 'none'
+      }
+    })
+    setTimeout(() => {
+      fn()
+    }, 1000)
+  }
 }
 
 export default Blocks
