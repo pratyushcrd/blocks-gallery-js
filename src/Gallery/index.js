@@ -1,3 +1,4 @@
+import Snap from 'imports-loader?this=>window,fix=>module.exports=0!snapsvg/dist/snap.svg.js'
 import Base from '../Base/'
 import { pluckNumber } from '../lib/'
 import defs from '../defs/'
