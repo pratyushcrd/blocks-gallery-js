@@ -34,7 +34,7 @@ function createBlocks(height, width) {
     imgBlocks[i] = []
     for (let j = 0; j < 10; j += 1) {
       // Creating the image element
-      const img = paper.image('https://www.w3schools.com/css/trolltunga.jpg', xCord, yCord, len, len)
+      const img = paper.image('https://www.w3schools.com/css/trolltunga.jpg', xCord, yCord, height, width)
       // Adding image to the gorup
       imgGroup.add(img)
       // Setting the x coordinate for the next image
