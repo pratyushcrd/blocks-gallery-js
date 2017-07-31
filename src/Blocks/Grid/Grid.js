@@ -21,7 +21,7 @@ function getLength(height, width, blockNumber = 100) {
  * @param {*number} height : height of the image
  * @param {*number} width : width of the image
  */
-function createBlocks(root, height, width) {
+function createBlocks(height, width) {
   const paper = this.getFromEnv('paper')
   const imgGroup = this.getFromStore('gridGroup')
   // Defining the element's property
@@ -30,6 +30,7 @@ function createBlocks(root, height, width) {
   }
   elem.x = 0
   elem.y = 0
+  console.log(elem)
   const imgBlocks = []
   for (let i = 0; i < 10; i += 1) {
     for (let j = 0; j < 10; j += 1) {
@@ -68,7 +69,8 @@ class Grid extends Base {
     const height = config.height
     const width = config.width
     // Initializing all the image elements and adding them to the store
-    this.addToStore('gridBlocks', createBlocks.call(this, height, width))
+    const gridBlocks = createBlocks.call(this, height, width)
+    this.addToStore('gridBlocks', gridBlocks)
   }
   /**
    * To be used to iterate over all the div and image elements
