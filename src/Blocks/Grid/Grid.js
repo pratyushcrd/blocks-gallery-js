@@ -25,25 +25,24 @@ function createBlocks(height, width) {
   const paper = this.getFromEnv('paper')
   const imgGroup = this.getFromStore('gridGroup')
   // Defining the element's property
-  const elem = {
-    len: getLength(height, width),
-  }
-  elem.x = 0
-  elem.y = 0
-  console.log(elem)
+  const len = getLength(height, width)
+  let xCord = 0
+  let yCord = 0
   const imgBlocks = []
   for (let i = 0; i < 10; i += 1) {
+    xCord = 0
+    imgBlocks[i] = []
     for (let j = 0; j < 10; j += 1) {
       // Creating the image element
-      const img = paper.image('https://www.w3schools.com/css/trolltunga.jpg', elem.x, elem.y, elem.len, elem.len)
+      const img = paper.image('https://www.w3schools.com/css/trolltunga.jpg', xCord, yCord, len, len)
       // Adding image to the gorup
       imgGroup.add(img)
       // Setting the x coordinate for the next image
-      elem.x += elem.len
-      imgBlocks.push(img)
+      xCord += len
+      imgBlocks[i].push(img)
     }
     // Setting the y coordinate for the next image
-    elem.y += elem.len
+    yCord += len
   }
   return imgBlocks
 }
