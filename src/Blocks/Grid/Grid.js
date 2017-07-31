@@ -28,10 +28,10 @@ function createBlocks(height, width) {
   const len = getLength(height, width)
   let xCord = 0
   let yCord = 0
-  const imgBlocks = []
+  const gridGroup = []
   for (let i = 0; i < 10; i += 1) {
     xCord = 0
-    imgBlocks[i] = []
+    gridGroup[i] = []
     for (let j = 0; j < 10; j += 1) {
       // Creating the image element
       const img = paper.image('https://www.w3schools.com/css/trolltunga.jpg', xCord, yCord, height, width)
@@ -39,12 +39,12 @@ function createBlocks(height, width) {
       imgGroup.add(img)
       // Setting the x coordinate for the next image
       xCord += len
-      imgBlocks[i].push(img)
+      gridGroup[i].push(img)
     }
     // Setting the y coordinate for the next image
     yCord += len
   }
-  return imgBlocks
+  return gridGroup
 }
 
 
@@ -68,8 +68,7 @@ class Grid extends Base {
     const height = config.height
     const width = config.width
     // Initializing all the image elements and adding them to the store
-    const gridBlocks = createBlocks.call(this, height, width)
-    this.addToStore('gridBlocks', gridBlocks)
+    this.addToStore('gridBlocks', createBlocks.call(this, height, width))
   }
   /**
    * To be used to iterate over all the div and image elements
