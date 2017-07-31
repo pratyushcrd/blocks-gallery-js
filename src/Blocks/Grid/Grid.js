@@ -11,7 +11,7 @@ import Base from '../../Base/Base'
  * @param {*number} width : Defines the width
  * @param {*number} blockNumber: Defines the number of blocks
  */
-function getLength(height, width, blockNumber = 100) {
+function getLength(width, height, blockNumber = 100) {
   const area = Math.round((height * width) / blockNumber)
   return Math.round(Math.sqrt(area))
 }
@@ -21,25 +21,38 @@ function getLength(height, width, blockNumber = 100) {
  * @param {*number} height : height of the image
  * @param {*number} width : width of the image
  */
-function createBlocks(height, width) {
+function createBlocks(width, height) {
   const paper = this.getFromEnv('paper')
   const imgGroup = this.getFromStore('gridGroup')
   // Defining the element's property
-  const len = getLength(height, width)
+  const len = getLength(width, height)
   let xCord = 0
   let yCord = 0
   const gridGroup = []
+  let mask
   for (let i = 0; i < 10; i += 1) {
     xCord = 0
     gridGroup[i] = []
     for (let j = 0; j < 10; j += 1) {
       // Creating the image element
-      const img = paper.image('https://www.w3schools.com/css/trolltunga.jpg', xCord, yCord, height, width)
+      const img = paper.image('https://www.w3schools.com/css/trolltunga.jpg', 0, 0, width, height)
+      // Create the mask
+      mask = paper
+        .rect(xCord, yCord, xCord + len, yCord + len)
+        .attr({
+          fill: '#fff',
+        })
+      img.attr({
+        mask,
+      })
       // Adding image to the gorup
       imgGroup.add(img)
       // Setting the x coordinate for the next image
       xCord += len
-      gridGroup[i].push(img)
+      gridGroup[i].push({
+        img,
+        mask,
+      })
     }
     // Setting the y coordinate for the next image
     yCord += len
@@ -68,7 +81,7 @@ class Grid extends Base {
     const height = config.height
     const width = config.width
     // Initializing all the image elements and adding them to the store
-    this.addToStore('gridBlocks', createBlocks.call(this, height, width))
+    this.addToStore('gridBlocks', createBlocks.call(this, width, height))
   }
   /**
    * To be used to iterate over all the div and image elements
