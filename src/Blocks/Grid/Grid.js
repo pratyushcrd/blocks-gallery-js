@@ -5,73 +5,46 @@
  */
 import Base from '../../Base/Base'
 /**
- * Function to set the one block property
- * @param {*object} el : element whose property is to set
- * @param {*object} style : object of the properties
+ *
+ * Calculating the length of the image element block on the given area
+ * @param {*number} height : Defines the height
+ * @param {*number} width : Defines the width
+ * @param {*number} blockNumber: Defines the number of blocks
  */
-function blockStyle(el, config) {
-  const blockEl = el
-  blockEl.style.position = 'absolute'
-  blockEl.style.width = config.side
-  blockEl.style.height = config.side
-  blockEl.style.marginTop = `-${config.y * config.len}px`
-  blockEl.style.marginLeft = `-${config.x * config.len}px`
-  blockEl.style.display = 'inline-block'
-  blockEl.style.overflow = 'hidden'
+function getLength(height, width, blockNumber = 100) {
+  const area = Math.round((height * width) / blockNumber)
+  return Math.round(Math.sqrt(area))
 }
 /**
- * Function to set the one img property
- * @param {*object} el : element whose property is to set
- * @param {*object} style : object of the properties
- */
-function blockImgStyle(el, config) {
-  const blockImgEl = el
-  blockImgEl.style.position = 'absolute'
-  blockImgEl.style.width = config.width
-  blockImgEl.style.height = config.height
-  blockImgEl.style.top = `-${config.y * config.len}px`
-  blockImgEl.style.left = `-${config.x * config.len}px`
-}
-
-/**
- * Fuction to create blocks
+ * Fuction to create image blocks
  * @param {*object} root : root element to which the bock need to be appended
  * @param {*number} height : height of the image
  * @param {*number} width : width of the image
  */
 function createBlocks(root, height, width) {
-  const area = Math.round((height * width) / 100)
-  const len = Math.round(Math.sqrt(area))
-  const elemProperty = {
-    height,
-    width,
-    len,
+  const paper = this.getFromEnv('paper')
+  const imgGroup = this.getFromStore('gridGroup')
+  // Defining the element's property
+  const elem = {
+    len: getLength(height, width),
   }
-  const blocks = []
+  elem.x = 0
+  elem.y = 0
+  const imgBlocks = []
   for (let i = 0; i < 10; i += 1) {
-    blocks[i] = []
     for (let j = 0; j < 10; j += 1) {
-      elemProperty.x = j
-      elemProperty.y = i
-      const block = document.createElement('div')
-      const img = document.createElement('img')
-      // Setting the property of the div block
-      blockStyle(block, elemProperty)
-      // Setting the property of the image
-      blockImgStyle(img, elemProperty)
-      block.appendChild(img)
-      // Appending to the root element
-      root.appendChild(block)
-      
-      const blockElements = {
-        div: block,
-        img,
-      }
-      // Collection of blocks
-      blocks[i][j] = blockElements
+      // Creating the image element
+      const img = paper.image('https://www.w3schools.com/css/trolltunga.jpg', elem.x, elem.y, elem.len, elem.len)
+      // Adding image to the gorup
+      imgGroup.add(img)
+      // Setting the x coordinate for the next image
+      elem.x += elem.len
+      imgBlocks.push(img)
     }
+    // Setting the y coordinate for the next image
+    elem.y += elem.len
   }
-  return blocks
+  return imgBlocks
 }
 
 
@@ -83,9 +56,19 @@ class Grid extends Base {
    */
   constructor(parent, root) {
     super(parent)
-    const height = this.getFromEnv('config.height')
-    const width = this.getFromEnv('config.width')
-    this.addToStore('blocks', createBlocks(root, height, width))
+    const config = this.getFromEnv('config')
+    const paper = this.getFromEnv('paper')
+
+    const gridGroup = paper
+      .group()
+      .attr({
+        id: 'blocks-gallery-gird',
+      })
+    this.addToStore('gridGroup', gridGroup)
+    const height = config.height
+    const width = config.width
+    // Initializing all the image elements and adding them to the store
+    this.addToStore('gridBlocks', createBlocks.call(this, height, width))
   }
   /**
    * To be used to iterate over all the div and image elements
@@ -95,7 +78,7 @@ class Grid extends Base {
   iterate(callback) {
     for (let i = 0; i < 10; i += 1) {
       for (let j = 0; j < 10; j += 1) {
-        const block = this.getFromStore('blocks')[i][j]
+        const block = this.getFromStore('gridBlocks')[i][j]
         callback(block.img, block.div, i, j)
       }
     }
