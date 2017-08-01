@@ -11,9 +11,14 @@ import Base from '../../Base/Base'
  * @param {*number} width : Defines the width
  * @param {*number} blockNumber: Defines the number of blocks
  */
-function getLength(width, height, blockNumber = 100) {
-  const area = Math.round((height * width) / blockNumber)
-  return Math.round(Math.sqrt(area))
+function getLength(width, height, length) {
+  return {
+    length,
+    xBlocks: (width / length) % 10 === 0 ? width / length : (width / length) + 1,
+    yBlocks: (height / length) % 10 === 0 ? height / length : (height / length) + 1,
+  }
+  // const area = Math.round((height * width) / blockNumber)
+  // return Math.round(Math.sqrt(area))
 }
 /**
  * Fuction to create image blocks
@@ -21,41 +26,50 @@ function getLength(width, height, blockNumber = 100) {
  * @param {*number} height : height of the image
  * @param {*number} width : width of the image
  */
-function createBlocks(width, height) {
+function createBlocks(width, height, length = 60) {
   const paper = this.getFromEnv('paper')
   const imgGroup = this.getFromStore('gridGroup')
   // Defining the element's property
-  const len = getLength(width, height)
+  const block = getLength(width, height, length)
   let xCord = 0
   let yCord = 0
   const gridGroup = []
   let mask
-  for (let i = 0; i < 10; i += 1) {
+  for (let i = 0; i < block.yBlocks; i += 1) {
     xCord = 0
     gridGroup[i] = []
-    for (let j = 0; j < 10; j += 1) {
+    for (let j = 0; j < block.xBlocks; j += 1) {
       // Creating the image element
       const img = paper.image('', 0, 0, width, height)
       // Create the mask
       mask = paper
-        .rect(xCord, yCord, xCord + len, yCord + len)
+        .rect(xCord, yCord, xCord + block.length, yCord + block.length)
         .attr({
           fill: '#fff',
         })
       img.attr({
         mask,
       })
+      const fn = () => (Math.random() * 266) << 0
+      const ttmpBox = paper
+        .rect(xCord, yCord, block.length, block.length)
+        .attr({
+          stroke: `rgba(${fn()},${fn()},${fn()},1)`,
+          'stroke-width': '1',
+          fill: 'rgba(0,0,0,0)',
+        })
       // Adding image to the gorup
       imgGroup.add(img)
+      imgGroup.add(ttmpBox)
       // Setting the x coordinate for the next image
-      xCord += len
+      xCord += block.length
       gridGroup[i].push({
         img,
         mask,
       })
     }
     // Setting the y coordinate for the next image
-    yCord += len
+    yCord += block.length
   }
   return gridGroup
 }
