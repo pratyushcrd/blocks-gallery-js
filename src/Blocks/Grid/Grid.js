@@ -31,6 +31,7 @@ function createBlocks(width, height, length = 60) {
   const imgGroup = this.getFromStore('gridGroup')
   // Defining the element's property
   const block = getLength(width, height, length)
+  this.addToStore('blockConfig', block)
   let xCord = 0
   let yCord = 0
   const gridGroup = []
@@ -65,7 +66,6 @@ function createBlocks(width, height, length = 60) {
       xCord += block.length
       gridGroup[i].push({
         img,
-        mask,
       })
     }
     // Setting the y coordinate for the next image
@@ -104,10 +104,11 @@ class Grid extends Base {
    * @param {*function} callback
    */
   iterate(callback) {
-    for (let i = 0; i < 10; i += 1) {
-      for (let j = 0; j < 10; j += 1) {
+    const blockConfig = this.getFromStore('blockConfig')
+    for (let i = 0; i < blockConfig.yBlocks; i += 1) {
+      for (let j = 0; j < blockConfig.xBlocks; j += 1) {
         const block = this.getFromStore('gridBlocks')[i][j]
-        callback(block.img, block.div, i, j)
+        callback(block.img, i, j)
       }
     }
   }
