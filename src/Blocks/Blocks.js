@@ -23,6 +23,8 @@ class Blocks extends Base {
     this.addToStore('blocksGroup', blocksGroup)
     // Initialize grid for the block instance
     this.addToStore('grid', new Grid(this, blocksGroup))
+    // Hidden initially
+    this.hide()
   }
 
   show() {
@@ -37,7 +39,7 @@ class Blocks extends Base {
     const currentImage = this.getFromStore('renderer').getCurrent().imageSrc
     this.getFromStore('grid').iterate((img) => {
       img.attr({
-        src: currentImage,
+        href: currentImage,
       })
       if (Math.random() > 0.4) {
         img.show()

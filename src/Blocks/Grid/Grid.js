@@ -35,7 +35,7 @@ function createBlocks(width, height) {
     gridGroup[i] = []
     for (let j = 0; j < 10; j += 1) {
       // Creating the image element
-      const img = paper.image('https://www.w3schools.com/css/trolltunga.jpg', 0, 0, width, height)
+      const img = paper.image('', 0, 0, width, height)
       // Create the mask
       mask = paper
         .rect(xCord, yCord, xCord + len, yCord + len)
@@ -67,7 +67,7 @@ class Grid extends Base {
    * @param {*object} parent
    * @param {*object} root : Element to which the blocks will be appended
    */
-  constructor(parent, root) {
+  constructor(parent, parentGroup) {
     super(parent)
     const config = this.getFromEnv('config')
     const paper = this.getFromEnv('paper')
@@ -77,6 +77,7 @@ class Grid extends Base {
       .attr({
         id: 'blocks-gallery-gird',
       })
+    parentGroup.add(gridGroup)
     this.addToStore('gridGroup', gridGroup)
     const height = config.height
     const width = config.width
