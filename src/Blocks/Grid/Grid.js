@@ -51,12 +51,11 @@ function createBlocks(width, height, length = 60) {
       img.attr({
         mask,
       })
-      const fn = () => (Math.random() * 266) << 0
       const ttmpBox = paper
         .rect(xCord, yCord, block.length, block.length)
         .attr({
-          stroke: `rgba(${fn()},${fn()},${fn()},1)`,
-          'stroke-width': '1',
+          stroke: 'rgba(0,0,0,0.4)',
+          'stroke-width': '0.5',
           fill: 'rgba(0,0,0,0)',
         })
       // Adding image to the gorup
