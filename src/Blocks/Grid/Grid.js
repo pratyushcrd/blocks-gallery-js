@@ -14,8 +14,8 @@ import Base from '../../Base/Base'
 function getLength(width, height, length) {
   return {
     length,
-    xBlocks: (width / length) % 10 === 0 ? width / length : (width / length) + 1,
-    yBlocks: (height / length) % 10 === 0 ? height / length : (height / length) + 1,
+    xBlocks: (width / length) % 10 === 0 ? width / length : (width / length),
+    yBlocks: (height / length) % 10 === 0 ? height / length : (height / length),
   }
   // const area = Math.round((height * width) / blockNumber)
   // return Math.round(Math.sqrt(area))
@@ -44,7 +44,7 @@ function createBlocks(width, height, length = 60) {
       const img = paper.image('', 0, 0, width, height)
       // Create the mask
       mask = paper
-        .rect(xCord, yCord, xCord + block.length, yCord + block.length)
+        .rect(xCord, yCord, block.length, block.length)
         .attr({
           fill: '#fff',
         })
