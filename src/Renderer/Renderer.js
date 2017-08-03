@@ -62,6 +62,7 @@ function renderImages() {
   // Initially all elements will be invisible
   domCollection.forEach((domOb) => {
     // Also add all elements to main group
+    domOb.group.hide()
     group.add(domOb.group)
   })
   // 0th image will be visible at first
