@@ -123,7 +123,7 @@ class Renderer extends Base {
   previous() {
     const currentPos = this.getFromStore('activePosition')
     const domCollection = this.getFromStore('domCollection')
-    const nextPos = (currentPos + 1) % domCollection.length
+    const nextPos = (currentPos - 1) % domCollection.length
     this.setPosition(nextPos)
   }
 
