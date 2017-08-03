@@ -51,16 +51,8 @@ function createBlocks(width, height, length = 60) {
       img.attr({
         mask,
       })
-      const ttmpBox = paper
-        .rect(xCord, yCord, block.length, block.length)
-        .attr({
-          stroke: 'rgba(0,0,0,0.4)',
-          'stroke-width': '0.5',
-          fill: 'rgba(0,0,0,0)',
-        })
       // Adding image to the gorup
       imgGroup.add(img)
-      imgGroup.add(ttmpBox)
       // Setting the x coordinate for the next image
       xCord += block.length
       gridGroup[i].push({
@@ -107,7 +99,7 @@ class Grid extends Base {
     for (let i = 0; i < blockConfig.yBlocks; i += 1) {
       for (let j = 0; j < blockConfig.xBlocks; j += 1) {
         const block = this.getFromStore('gridBlocks')[i][j]
-        callback(block.img, i, j)
+        callback(block, i, j)
       }
     }
   }

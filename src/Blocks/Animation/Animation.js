@@ -46,7 +46,7 @@ const Animation = {
     }
     /* 'Bind' Hack, not using bind since fat arrow function doesnt support them */
     return (...params) => {
-      animFn(speed, ...params)
+      return animFn(speed, ...params)
     }
   },
   /**
@@ -77,12 +77,13 @@ const Animation = {
           time,
           /* Callback */
           () => {
-          /* Set opacity back to 1 */
-            image.attr({
-              opacity: 1,
-            })
             /* Resolve the promise on animation end */
-            resolve()
+            resolve(() => {
+              /* Set opacity back to 1 when all animation ends */
+              image.attr({
+                opacity: 1,
+              })
+            })
           },
         )
         /* .animate ends */

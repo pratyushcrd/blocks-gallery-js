@@ -1,5 +1,6 @@
 import Base from '../Base/Base'
 import Grid from './Grid/Grid'
+import Animation from './Animation/Animation'
 
 /**
  * Component responsible for blocks management of image,
@@ -35,21 +36,27 @@ class Blocks extends Base {
     this.getFromStore('blocksGroup').hide()
   }
 
-  animate(fn) {
+  animate(callback) {
+    const animation = Animation.get('', 1)
     const currentImage = this.getFromStore('renderer').getCurrent().imageSrc
-    this.getFromStore('grid').iterate((img) => {
-      img.attr({
+    const promiseArr = []
+    /* Iterate over all blocks, call the animation functions
+      and store them in promise array */
+    this.getFromStore('grid').iterate((block, rowIndex, colIndex) => {
+      block.img.attr({
         href: currentImage,
       })
-      if (Math.random() > 0.4) {
-        img.show()
-      } else {
-        img.hide()
-      }
+      promiseArr.push(animation(block, rowIndex, colIndex))
     })
-    setTimeout(() => {
-      fn()
-    }, 1000)
+    /* Fire callback when all animations end */
+    Promise
+      .all(promiseArr)
+      .then((animCallbacks) => {
+        /* Execute callback by parent */
+        callback()
+        /* Execute animation callbacks */
+        animCallbacks.forEach(animCallback => animCallback())
+      })
   }
 }
 
