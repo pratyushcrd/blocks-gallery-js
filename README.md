@@ -31,6 +31,7 @@ BlocksGallery.addAnimation('flyingBlocks', (speed, blockObject, rowIndex, colInd
         time,
         function callback () {
             // on animation completetion resolve the promise
+            // with a function that set back the original attributes
             resolve(function setDefaultAttr () {
                 image.attr({
                     x: defaultX,
