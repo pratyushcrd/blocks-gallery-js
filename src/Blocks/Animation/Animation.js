@@ -45,9 +45,7 @@ const Animation = {
       speed = 0
     }
     /* 'Bind' Hack, not using bind since fat arrow function doesnt support them */
-    return (...params) => {
-      return animFn(speed, ...params)
-    }
+    return (...params) => animFn(speed, ...params)
   },
   /**
    * Default animation function, if animation is not found,
@@ -61,6 +59,12 @@ const Animation = {
     const time = 1000 * speed
     const waitTime = Math.random() * 1000 << 0
     const image = block.img
+    const setDefaultAttr = () => {
+      /* Set opacity back to 1 when all animation ends */
+      image.attr({
+        opacity: 1,
+      })
+    }
     return new Promise((resolve) => {
       /* Set initial opacity to 1 to start animation */
       image.attr({
@@ -78,12 +82,7 @@ const Animation = {
           /* Callback */
           () => {
             /* Resolve the promise on animation end */
-            resolve(() => {
-              /* Set opacity back to 1 when all animation ends */
-              image.attr({
-                opacity: 1,
-              })
-            })
+            resolve(setDefaultAttr)
           },
         )
         /* .animate ends */
