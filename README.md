@@ -3,7 +3,7 @@
 
 BlocksGallery is a vanilla javascript based gallery, that supports a bunch of cool animations. Every time you do next all images are divided into blocks and then the animations are applied over it.
 
-Supported animations
+### Supported animations
 
   - Random fading blocks 
   - Falling blocks
