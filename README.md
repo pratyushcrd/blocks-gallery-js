@@ -8,8 +8,10 @@ BlocksGallery is a vanilla javascript based gallery, that supports a bunch of co
   - Random fading blocks 
   - Falling blocks
 
+### Extend Animations
 
-BlocksGallery internally uses SnapSVG - a light-weight svg library. It is super easy to add new animations to BlocksGallery.
+BlocksGallery internally uses SnapSVG - a light-weight svg library for Svg manipulation.
+It is super easy to add a new animation to BlocksGallery.
 
 ```
 BlocksGallery.addAnimation('flyingBlocks', (speed, blockObject, rowIndex, colIndex) => {
