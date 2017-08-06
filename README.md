@@ -71,13 +71,12 @@ Make a change in your file and instantanously see your updates!
 > npm start
 ```
 
-Make the changes and raise a pull request
-illinger image and pull in the necessary dependencies. Be sure to swap out `${package.json.version}` with the actual version of Dillinger.
+Make the changes and raise a pull request.
 
 ### Todos
 
- - Write MOAR Tests
- - Add Night Mode
+ - Adding more animation
+ - Custom block shape support (aprt from rectangle boxes)
 
 License
 ----
