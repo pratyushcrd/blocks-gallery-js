@@ -36,11 +36,13 @@ class Blocks extends Base {
     this.getFromStore('blocksGroup').hide()
   }
 
-  animate(callback) {
+  animate() {
     const animType = this.getFromEnv('config').anim
     const animation = Animation.get(animType, 1)
     const currentImage = this.getFromStore('renderer').getCurrent().imageSrc
     const promiseArr = []
+    // Show blocks beforre animating
+    this.show()
     /* Iterate over all blocks, call the animation functions
       and store them in promise array */
     this.getFromStore('grid').iterate((block, rowIndex, colIndex) => {
@@ -54,7 +56,8 @@ class Blocks extends Base {
       .all(promiseArr)
       .then((animCallbacks) => {
         /* Execute callback by parent */
-        callback()
+        /* Hide block after animation */
+        this.hide()
         /* Execute animation callbacks */
         animCallbacks.forEach(animCallback => animCallback())
       })

@@ -11,13 +11,8 @@ import extendSnap from '../lib/extendSnap'
 extendSnap(Snap)
 
 function animateBlocks(blocks) {
-  // Show blocks
-  blocks.show()
-  // Animate blocks and hide it when
-  // animation completes
-  blocks.animate(() => {
-    blocks.hide()
-  })
+  // Animate blocks
+  blocks.animate()
 }
 
 class BlocksGallery extends Base {
