@@ -49,7 +49,6 @@ class BlocksGallery extends Base {
     const config = Object.assign({}, rawConfig)
     const height = pluckNumber(config.height, defs.height)
     const width = pluckNumber(config.width, defs.width)
-    const svg = document.createElementNS(null, 'svg')
     config.height = height
     config.width = width
 
@@ -59,8 +58,9 @@ class BlocksGallery extends Base {
     }
     // Adjust svg
     // Create paper
-    rootEl.appendChild(svg)
     const paper = new Snap(width, height)
+    // Append SnapSvg element to user's container
+    rootEl.appendChild(paper.node)
     /* Applying height and width */
     rootEl.style.height = height
     rootEl.style.width = width
