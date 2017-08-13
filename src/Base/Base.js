@@ -63,6 +63,7 @@ export default class Base {
   /* Setter for store */
   addToStore(key, val) {
     this.store[key] = val
+    return val
   }
   /* Getter for store */
   getFromStore(...keys) {
@@ -71,6 +72,7 @@ export default class Base {
   /* Setter for state */
   setState(key, val) {
     this.state[key] = val
+    return val
   }
   /* Getter for state */
   getState(...keys) {
@@ -79,6 +81,7 @@ export default class Base {
   /* Setter for props */
   setProps(key, val) {
     this.props[key] = val
+    return val
   }
   /* Getter for props */
   getProps(...keys) {
@@ -91,5 +94,6 @@ export default class Base {
   /* Add to environment */
   addToEnv(key, val) {
     this.environment[key] = val
+    return val
   }
 }
