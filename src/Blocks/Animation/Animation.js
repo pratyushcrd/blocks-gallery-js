@@ -38,6 +38,9 @@ const Animation = {
    * @param {string} key Animation name
    */
   get(key, speed) {
+    if (key in ['get', 'add']) {
+      throw Error('Not a valid animation name')
+    }
     const animFn = this[key] || this.defaultAnim
     /* Make sure speed is valid */
     speed = parseFloat(speed) || 0

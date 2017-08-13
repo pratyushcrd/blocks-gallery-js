@@ -37,7 +37,8 @@ class Blocks extends Base {
   }
 
   animate(callback) {
-    const animation = Animation.get('', 1)
+    const animType = this.getFromEnv('config').anim
+    const animation = Animation.get(animType, 1)
     const currentImage = this.getFromStore('renderer').getCurrent().imageSrc
     const promiseArr = []
     /* Iterate over all blocks, call the animation functions

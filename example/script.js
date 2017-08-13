@@ -1,6 +1,7 @@
 let gallery = new BlocksGallery('gallery', {
   height: 400,
   width: 600,
+  anim: 'fall',
   src: [{
     image: 'https://static.pexels.com/photos/4827/nature-forest-trees-fog.jpeg',
   },

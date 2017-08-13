@@ -30,6 +30,7 @@ class BlocksGallery extends Base {
      *   height: 500,
      *   width: 400,
      *   controls: true,
+     *   anim: 'fall',
      *   src: [{
      *     image: 'path/to/image',
      *     title: 'title string',
