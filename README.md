@@ -22,15 +22,17 @@ BlocksGallery.addAnimation('flyingBlocks', (speed, blockObject, done, rowIndex, 
         y: image.attr('y'),
     }
     
-    img.animate({
-        x: something,
-        y: somevalue,
-    },
-    time,
-    () => {
-        // on animation completetion call the done function
-        done()
-    })
+    img.animate(
+        // Attributes
+        {
+            x: something,
+            y: somevalue,
+        },
+        // Animation duration
+        time,
+        // Pass done as animation callback function
+        done
+    )
 
     // Return default values of attributes that this function changed
     return defaults
