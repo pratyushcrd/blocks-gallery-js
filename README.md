@@ -10,36 +10,30 @@ BlocksGallery is a vanilla javascript based gallery, that supports a bunch of co
 
 ### Extend Animations
 
-BlocksGallery internally uses SnapSVG - a light-weight svg library for Svg manipulation.
+BlocksGallery internally uses SnapSVG - a light-weight library for Svg manipulation.
 It is super easy to add a new animation to BlocksGallery.
 
 ```
-BlocksGallery.addAnimation('flyingBlocks', (speed, blockObject, rowIndex, colIndex) => {
+BlocksGallery.addAnimation('flyingBlocks', (speed, blockObject, done, rowIndex, colIndex) => {
     let image = blockObject.img;
-    let time = 1000 * speed // speed is >= 0
-    let defaultX = image.attr('x')
-    let defaultY = image.attr('y')
+    let time = 1000 / speed // speed is >= 0
+    const defaults = {
+        x: image.attr('x'),
+        y: image.attr('y'),
+    }
     
-    // Return a promise and on animation completion
-    // resolve with a function that sets back
-    // all the attributes you changed, to default
-    return new Promise ((resolve) => {
-        img.animate({
-            x: something,
-            y: somevalue
-        },
-        time,
-        function callback () {
-            // on animation completetion resolve the promise
-            // with a function that set back the original attributes
-            resolve(function setDefaultAttr () {
-                image.attr({
-                    x: defaultX,
-                    y: defaultY
-                })
-            })
-        })
+    img.animate({
+        x: something,
+        y: somevalue,
+    },
+    time,
+    () => {
+        // on animation completetion call the done function
+        done()
     })
+
+    // Return default values of attributes that this function changed
+    return defaults
 })
 ```
 
