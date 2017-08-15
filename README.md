@@ -70,7 +70,7 @@ Make the changes and raise a pull request.
 ### Todos
 
  - Adding more animation
- - Custom block shape support (aprt from rectangle boxes)
+ - Custom block shape support (aprt from rectangular boxes)
 
 License
 ----
