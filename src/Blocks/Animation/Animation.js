@@ -59,40 +59,36 @@ const Animation = {
    * @param {Number} rowIndex Row position
    * @param {Number} colIndex Column position
    */
-  defaultAnim(speed, block) {
+  defaultAnim(speed, block, done) {
     const time = 1000 * speed
     const waitTime = Math.random() * 1000 << 0
     const image = block.img
-    const setDefaultAttr = () => {
-      /* Set opacity back to 1 when all animation ends */
-      image.attr({
-        opacity: 1,
-      })
+    const defaultAttrs = {
+      opacity: image.attr('opacity'),
     }
-    return new Promise((resolve) => {
       /* Set initial opacity to 1 to start animation */
-      image.attr({
-        opacity: 1,
-      })
-      setTimeout(() => {
+    image.attr({
+      opacity: 1,
+    })
+    setTimeout(() => {
         /* Animate to opacity 0 */
-        image.animate(
+      image.animate(
           /* Attributes */
-          {
-            opacity: 0,
-          },
-          /* Animation duration */
-          time,
-          /* Callback */
-          () => {
-            /* Resolve the promise on animation end */
-            resolve(setDefaultAttr)
-          },
+        {
+          opacity: 0,
+        },
+        /* Animation duration */
+        time,
+        /* Callback */
+        () => {
+          /* Resolve the promise on animation end */
+          done()
+        },
         )
         /* .animate ends */
-      }, waitTime)
+    }, waitTime)
       /* setTimeout end */
-    })
+    return defaultAttrs
   },
 }
 

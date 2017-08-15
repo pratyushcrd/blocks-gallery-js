@@ -23,4 +23,5 @@ export default {
   pluckNumber(...args) {
     return +pluck(...args)
   },
+  blankFn: () => {},
 }

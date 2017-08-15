@@ -1,6 +1,7 @@
 import Base from '../Base/Base'
 import Grid from './Grid/Grid'
 import Animation from './Animation/Animation'
+import { blankFn } from '../lib/lib'
 
 /**
  * Component responsible for blocks management of image,
@@ -26,6 +27,8 @@ class Blocks extends Base {
     this.addToStore('grid', new Grid(this, blocksGroup))
     // Hidden initially
     this.hide()
+    // Adding a callback array to store
+    this.addToStore('callbackArray', [])
   }
 
   show() {
@@ -40,26 +43,50 @@ class Blocks extends Base {
     const animType = this.getFromEnv('config').anim
     const animation = Animation.get(animType, 1)
     const currentImage = this.getFromStore('renderer').getCurrent().imageSrc
+    const callbackArr = this.getFromStore('callbackArray')
     const promiseArr = []
     // Show blocks beforre animating
     this.show()
     /* Iterate over all blocks, call the animation functions
       and store them in promise array */
     this.getFromStore('grid').iterate((block, rowIndex, colIndex) => {
+      callbackArr[rowIndex] = callbackArr[rowIndex] || []
+      /* Stop any on-going animation and set default attrs */
+      block.img.stop()
+      /* call the resolver function to set
+        default attrs */
+      if (callbackArr[rowIndex][colIndex]) {
+        callbackArr[rowIndex][colIndex]()
+      }
+      /* Set new image source */
       block.img.attr({
         href: currentImage,
       })
-      promiseArr.push(animation(block, rowIndex, colIndex))
+      let attrs = {}
+      callbackArr[rowIndex][colIndex] = () => {
+        block.img.attr(attrs)
+        callbackArr[rowIndex][colIndex] = blankFn
+      }
+      const promise = new Promise((resolve) => {
+        attrs = animation(block, () => {
+          resolve()
+        }, rowIndex, colIndex)
+      })
+      promiseArr.push(promise)
     })
     /* Fire callback when all animations end */
     Promise
       .all(promiseArr)
-      .then((animCallbacks) => {
+      .then(() => {
         /* Execute callback by parent */
         /* Hide block after animation */
         this.hide()
         /* Execute animation callbacks */
-        animCallbacks.forEach(animCallback => animCallback())
+        callbackArr.forEach((callbackRack) => {
+          callbackRack.forEach((callback) => {
+            callback()
+          })
+        })
       })
   }
 }
