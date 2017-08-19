@@ -7,11 +7,11 @@ import Renderer from '../Renderer/Renderer'
 import Blocks from '../Blocks/Blocks'
 import extendSnap from '../lib/extendSnap'
 
-// extend feature of SnapSvg
+/* extend feature of SnapSvg */
 extendSnap(Snap)
 
 function animateBlocks(blocks) {
-  // Animate blocks
+  /* Animate blocks */
   blocks.animate()
 }
 
@@ -34,9 +34,11 @@ class BlocksGallery extends Base {
      * })
      */
   constructor(elementId, rawConfig) {
-    // Making the environment variable
-    // Every instance will have its own environment
-    // object
+    /**
+     * Making the environment variable
+     * Every instance will have its own environment
+     *  object
+     */
     super({
       isEnvVariable: true,
     })
@@ -52,10 +54,9 @@ class BlocksGallery extends Base {
     if (!rootEl) {
       throw Error(`Element with id ${elementId} not found`)
     }
-    // Adjust svg
-    // Create paper
+    /* Create paper instance from Snap */
     const paper = new Snap(width, height)
-    // Append SnapSvg element to user's container
+    /* Append SnapSvg element to user's container */
     rootEl.appendChild(paper.node)
     /* Applying height and width */
     rootEl.style.height = height
@@ -65,13 +66,13 @@ class BlocksGallery extends Base {
     this.addToEnv('paper', paper)
     /* Saving config */
     this.addToEnv('config', config)
-    /* Creating controllers for gallery */
-    this.addToStore('controls', new Controls(this))
     /* Creating handler to render the images */
     const renderer = new Renderer(this)
     this.addToStore('renderer', renderer)
     /* Creating handler to manage the grids */
     this.addToStore('blocks', new Blocks(this, renderer))
+    /* Creating controllers for gallery */
+    this.addToStore('controls', new Controls(this))
   }
   /**
    * Show next image in list
