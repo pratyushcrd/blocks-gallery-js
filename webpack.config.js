@@ -13,11 +13,11 @@ module.exports = {
     compress: true,
     port: 80,
   },
-  module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader',
-    }],
-  },
+  // module: {
+  //   loaders: [{
+  //     test: /\.js$/,
+  //     exclude: /node_modules/,
+  //     loader: 'babel-loader',
+  //   }],
+  // },
 }

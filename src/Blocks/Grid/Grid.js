@@ -3,7 +3,7 @@
  * @param {*number} height
  * @param {*number} width
  */
-import Base from '../../Base/Base'
+const Base = require('../../Base/Base')
 /**
  *
  * Calculating the length of the image element block on the given area
@@ -105,4 +105,4 @@ class Grid extends Base {
   }
 }
 
-export default Grid
+module.exports = Grid

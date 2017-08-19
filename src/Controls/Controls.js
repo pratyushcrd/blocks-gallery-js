@@ -1,5 +1,5 @@
-import Base from '../Base/Base'
-import defs from '../defs/defs'
+const Base = require('../Base/Base')
+const defs = require('../defs/defs')
 
 /* Get default configurations for controls */
 const defsControl = defs.controls
@@ -87,4 +87,4 @@ class Controls extends Base {
   }
 }
 
-export default Controls
+module.exports = Controls

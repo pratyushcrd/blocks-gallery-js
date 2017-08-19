@@ -1,4 +1,4 @@
-import Base from './'
+const Base = require('./')
 describe('Base Component Test', () => {
   const envOb = {
     isEnvVariable: true

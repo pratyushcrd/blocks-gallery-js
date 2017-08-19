@@ -1,7 +1,7 @@
-import Base from '../Base/Base'
-import Grid from './Grid/Grid'
-import Animation from './Animation/Animation'
-import { blankFn } from '../lib/lib'
+const Base = require('../Base/Base')
+const Grid = require('./Grid/Grid')
+const Animation = require('./Animation/Animation')
+const { blankFn } = require('../lib/lib')
 
 /**
  * Component responsible for blocks management of image,
@@ -91,4 +91,4 @@ class Blocks extends Base {
   }
 }
 
-export default Blocks
+module.exports = Blocks

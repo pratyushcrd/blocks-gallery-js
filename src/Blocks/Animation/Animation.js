@@ -1,4 +1,4 @@
-import fall from './fall'
+const fall = require('./fall')
 /**
  * A static module for animation collection
  *
@@ -95,4 +95,4 @@ const Animation = {
 // Add new animations
 Animation.add('fall', fall)
 
-export default Animation
+module.exports = Animation

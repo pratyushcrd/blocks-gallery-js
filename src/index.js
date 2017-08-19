@@ -1,5 +1,5 @@
-import BlocksGallery from './Gallery/Gallery'
+const BlocksGallery = require('./Gallery/Gallery')
 
 // Add global functionalities here if needed
 
-export default BlocksGallery
+module.exports = BlocksGallery

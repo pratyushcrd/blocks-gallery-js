@@ -1,4 +1,4 @@
-export default function extendSnap(SnapGlobal) {
+module.exports = function extendSnap(SnapGlobal) {
   SnapGlobal.plugin((Snap, Element) => {
     const whitespace = /[\x20\t\r\n\f]+/g
 

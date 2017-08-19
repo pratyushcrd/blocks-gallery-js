@@ -1,5 +1,5 @@
 /* Function to immitate free falling style animation */
-export default (speed, block, done, rowIndex, colIndex) => {
+module.exports = (speed, block, done, rowIndex, colIndex) => {
   const img = block.img
   const defaultAttrs = {
     y: img.attr('y') || 0,

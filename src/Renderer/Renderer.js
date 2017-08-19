@@ -1,5 +1,5 @@
-import { pluck } from '../lib/lib'
-import Base from '../Base/Base'
+const { pluck } = require('../lib/lib')
+const Base = require('../Base/Base')
 /**
  * Function to create list item of gallery
  * based on provided object
@@ -138,4 +138,4 @@ class Renderer extends Base {
   }
 }
 
-export default Renderer
+module.exports = Renderer

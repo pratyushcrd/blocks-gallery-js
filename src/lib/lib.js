@@ -18,7 +18,7 @@ const pluck = (...args) => {
   return result
 }
 
-export default {
+module.exports = {
   pluck,
   pluckNumber(...args) {
     return +pluck(...args)

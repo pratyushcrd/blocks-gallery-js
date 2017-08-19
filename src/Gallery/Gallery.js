@@ -1,11 +1,11 @@
-import Snap from 'imports-loader?this=>window,fix=>module.exports=0!snapsvg/dist/snap.svg.js'
-import Base from '../Base/Base'
-import { pluckNumber } from '../lib/lib'
-import defs from '../defs/defs'
-import Controls from '../Controls/Controls'
-import Renderer from '../Renderer/Renderer'
-import Blocks from '../Blocks/Blocks'
-import extendSnap from '../lib/extendSnap'
+const Snap = require('imports-loader?this=>window,fix=>module.exports=0!snapsvg/dist/snap.svg.js')
+const Base = require('../Base/Base')
+const { pluckNumber } = require('../lib/lib')
+const defs = require('../defs/defs')
+const Controls = require('../Controls/Controls')
+const Renderer = require('../Renderer/Renderer')
+const Blocks = require('../Blocks/Blocks')
+const extendSnap = require('../lib/extendSnap')
 
 /* extend feature of SnapSvg */
 extendSnap(Snap)
@@ -91,4 +91,4 @@ class BlocksGallery extends Base {
 }
 
 /* Export the BlocksGallery class */
-export default BlocksGallery
+module.exports = BlocksGallery

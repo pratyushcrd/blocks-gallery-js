@@ -53,7 +53,7 @@ function getter(ob, keys) {
  * A class that will be base class for all other components
  * so initialize states and add basic functionalities
  */
-export default class Base {
+module.exports = class Base {
   constructor(parent) {
     this.state = {}
     this.store = {}
